@@ -7,8 +7,9 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
-PARTS = ['rover', 'mission']   # later: 'ekf', 'slam', 'nav', 'explore', 'detector', ...
+PARTS = ['rover', 'ekf', 'mission']   # later: 'ekf', 'slam', 'nav', 'explore', 'detector', ...
 
+bringup = get_package_share_directory('inspection_bringup')
 
 def generate_launch_description():
     rover_launch = os.path.join(
@@ -21,6 +22,10 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(rover_launch),
             condition=IfCondition(LaunchConfiguration('rover'))),
+        
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(os.path.join(bringup, 'launch', 'ekf.launch.py')),
+            condition=IfCondition(LaunchConfiguration('ekf'))),
 
         Node(package='inspection_mission', executable='mission_manager',
              name='mission_manager', output='screen',

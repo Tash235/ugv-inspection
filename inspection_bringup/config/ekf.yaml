@@ -1,0 +1,29 @@
+ekf_filter_node:
+  ros__parameters:
+    frequency: 30.0              # Hz — how often it publishes the fused estimate
+    two_d_mode: true             # ground robot: ignore z, roll, pitch
+    publish_tf: true             # THE odom → base_footprint publisher from now on
+
+    map_frame: map
+    odom_frame: odom
+    base_link_frame: base_footprint
+    world_frame: odom
+
+    # --- Wheel odometry: forward speed, sideways speed (=0), turn rate
+    odom0: /odom/wheel
+    odom0_config: [false, false, false,    # x, y, z
+                   false, false, false,    # roll, pitch, yaw
+                   true,  true,  false,    # vx, vy, vz
+                   false, false, true,     # vroll, vpitch, vyaw
+                   false, false, false]    # ax, ay, az
+    odom0_queue_size: 10
+
+    # --- IMU: turn rate only
+    imu0: /imu/data_raw
+    imu0_config: [false, false, false,
+                  false, false, false,
+                  false, false, false,
+                  false, false, true,      # vyaw
+                  false, false, false]
+    imu0_queue_size: 10
+    imu0_remove_gravitational_acceleration: false

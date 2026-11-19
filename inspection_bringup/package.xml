@@ -14,6 +14,7 @@
 
   <exec_depend>rover_bringup</exec_depend>
   <exec_depend>inspection_mission</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
 
   <export>
     <build_type>ament_python</build_type>
