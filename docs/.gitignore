@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.vscode/
+*.egg-info/
+# mission output and big files stay out of Git
+missions/
+*.bag
+*.db3
+*.engine
+*.onnx
+*.pt

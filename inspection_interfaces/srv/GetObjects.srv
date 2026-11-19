@@ -1,0 +1,3 @@
+bool confirmed_only
+---
+InspectedObject[] objects
